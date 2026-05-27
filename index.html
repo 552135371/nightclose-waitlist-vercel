@@ -823,6 +823,32 @@
       const successA = document.getElementById("success-a");
       const submitButton = formA.querySelector("button");
 
+      function getAttributionMetadata() {
+        const params = new URLSearchParams(window.location.search);
+        const utm = {};
+        ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => {
+          if (params.has(key)) utm[key] = params.get(key);
+        });
+
+        return {
+          utm,
+          landing_path: window.location.pathname,
+          landing_url: window.location.href,
+          language: navigator.language || "",
+          languages: Array.isArray(navigator.languages) ? navigator.languages : [],
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+          viewport: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+            device_pixel_ratio: window.devicePixelRatio || 1,
+          },
+          screen: {
+            width: window.screen ? window.screen.width : null,
+            height: window.screen ? window.screen.height : null,
+          },
+        };
+      }
+
       formA.addEventListener("submit", async (event) => {
         event.preventDefault();
         submitButton.disabled = true;
@@ -839,6 +865,7 @@
             pain: payload.pain || "",
             variant: "version-a",
             narrative: "saved-tomorrows",
+            ...getAttributionMetadata(),
           },
         };
 

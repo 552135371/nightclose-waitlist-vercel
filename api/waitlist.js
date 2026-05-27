@@ -37,6 +37,15 @@ async function readJson(req) {
   return raw ? JSON.parse(raw) : {};
 }
 
+function decodeHeader(value) {
+  if (!value) return "";
+  try {
+    return decodeURIComponent(String(value));
+  } catch {
+    return String(value);
+  }
+}
+
 function normalizePayload(body, req) {
   const email = String(body.email || "").trim().toLowerCase();
   const name = String(body.name || "").trim();
@@ -45,6 +54,19 @@ function normalizePayload(body, req) {
   const website = String(body.website || "").trim();
   const userAgent = req.headers["user-agent"] || "";
   const referrer = req.headers.referer || "";
+  const ip = String(
+    req.headers["x-forwarded-for"] ||
+      req.headers["x-real-ip"] ||
+      req.headers["x-vercel-forwarded-for"] ||
+      ""
+  )
+    .split(",")[0]
+    .trim();
+  const country = decodeHeader(req.headers["x-vercel-ip-country"]);
+  const region = decodeHeader(req.headers["x-vercel-ip-country-region"]);
+  const city = decodeHeader(req.headers["x-vercel-ip-city"]);
+  const latitude = decodeHeader(req.headers["x-vercel-ip-latitude"]);
+  const longitude = decodeHeader(req.headers["x-vercel-ip-longitude"]);
 
   return {
     email,
@@ -52,6 +74,12 @@ function normalizePayload(body, req) {
     source,
     project,
     website,
+    ip,
+    country,
+    region,
+    city,
+    latitude,
+    longitude,
     user_agent: userAgent,
     referrer,
     metadata: body.metadata && typeof body.metadata === "object" ? body.metadata : {},
@@ -81,6 +109,12 @@ async function saveToSupabase(entry) {
       name: entry.name || null,
       source: entry.source,
       project: entry.project,
+      ip: entry.ip || null,
+      country: entry.country || null,
+      region: entry.region || null,
+      city: entry.city || null,
+      latitude: entry.latitude || null,
+      longitude: entry.longitude || null,
       user_agent: entry.user_agent,
       referrer: entry.referrer,
       metadata: entry.metadata,
