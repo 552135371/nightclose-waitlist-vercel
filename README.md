@@ -97,11 +97,12 @@ X-Waitlist-Secret: YOUR_SECRET
 ## Optional Environment Variables
 
 ```text
-ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+ALLOWED_ORIGINS=
 WAITLIST_PROJECT=nightclose
 ```
 
 If `ALLOWED_ORIGINS` is empty, same-origin browser requests work normally.
+Use this variable only when another domain needs to call the API.
 
 ## Frontend Integration
 

@@ -10,12 +10,22 @@ function json(res, status, payload, headers = {}) {
 
 function getOriginPolicy(req) {
   const origin = req.headers.origin;
+  const host = req.headers.host;
   const configured = (process.env.ALLOWED_ORIGINS || "")
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
 
   if (!origin) return { origin: "", allowed: true };
+  try {
+    const originHost = new URL(origin).host;
+    if (host && originHost === host) {
+      return { origin, allowed: true };
+    }
+  } catch {
+    return { origin: "", allowed: false };
+  }
+
   if (configured.length === 0) return { origin, allowed: true };
   return { origin: configured.includes(origin) ? origin : "", allowed: configured.includes(origin) };
 }
