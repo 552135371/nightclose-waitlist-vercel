@@ -34,6 +34,12 @@ create policy "No public writes"
   for insert
   with check (false);
 
+-- Opt in explicitly to Supabase Data API access.
+-- The browser never writes this table directly; Vercel uses the server-side service role.
+revoke all on table public.nightclose_waitlist from anon, authenticated;
+revoke all on sequence public.nightclose_waitlist_id_seq from anon, authenticated;
+revoke all on table public.nightclose_waitlist from service_role;
+
 grant usage on schema public to service_role;
 grant insert, select on public.nightclose_waitlist to service_role;
 grant usage, select on sequence public.nightclose_waitlist_id_seq to service_role;
