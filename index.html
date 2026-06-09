@@ -359,12 +359,14 @@
 
       .problem-layout {
         display: grid;
-        grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+        grid-template-columns: minmax(280px, 0.72fr) minmax(320px, 1.08fr);
         gap: clamp(1.5rem, 5vw, 4rem);
         align-items: center;
       }
 
       .problem-image {
+        height: clamp(330px, 38vw, 500px);
+        align-self: center;
         overflow: hidden;
         border-radius: 22px;
         background: var(--night-800);
@@ -372,9 +374,9 @@
 
       .problem-image img {
         width: 100%;
-        aspect-ratio: 16 / 10;
+        height: 100%;
         object-fit: cover;
-        object-position: 52% 44%;
+        object-position: 52% 48%;
       }
 
       .problem-list {
@@ -802,6 +804,10 @@
         .recap-video-card {
           width: min(76vw, 340px);
         }
+
+        .problem-image {
+          height: clamp(280px, 58vw, 430px);
+        }
       }
 
       @media (max-width: 640px) {
@@ -1002,28 +1008,28 @@
       <section class="section flow-section" id="flow">
         <div class="wrap">
           <div class="section-head">
-            <h2>Three moments, then one recap.</h2>
-            <p>NightClose stays small on purpose: close the night, record the morning, let Tomorrow Crew make the loop feel emotionally safe enough to repeat.</p>
+            <h2>Three simple moments, then one recap.</h2>
+            <p>A night reminder helps you stop the scroll, a morning camera captures one honest state photo, and Tomorrow Crew makes the loop feel safe enough to repeat.</p>
           </div>
           <div class="flow-grid">
             <article class="flow-item">
               <div class="screen">
-                <img src="./assets/night-recall.png" width="853" height="1844" loading="lazy" decoding="async" alt="Night recall screen showing Tomorrow Crew and the user photo" />
+                <img src="./assets/night-recall.png" width="853" height="1844" loading="lazy" decoding="async" alt="Night reminder screen showing Tomorrow Crew asking the user to stop doomscrolling and protect tomorrow-you" />
               </div>
               <div class="flow-copy">
-                <span>Tonight</span>
-                <h3>Protect tomorrow-you.</h3>
-                <p>When doomscrolling keeps going, the app brings back the better-state self you chose.</p>
+                <span>Night reminder</span>
+                <h3>Stop the scroll. Protect tomorrow-you.</h3>
+                <p>When your scroll timer is up, NightClose brings back the better-state self you chose and asks you to stop here.</p>
               </div>
             </article>
             <article class="flow-item">
               <div class="screen">
-                <img src="./assets/morning-capture.png" width="853" height="1844" loading="lazy" decoding="async" alt="Morning photo capture screen" />
+                <img src="./assets/morning-capture.png" width="853" height="1844" loading="lazy" decoding="async" alt="Morning camera screen guiding the user to take one private real-state selfie" />
               </div>
               <div class="flow-copy">
-                <span>Morning</span>
-                <h3>Save one honest photo.</h3>
-                <p>A private real-state check-in, without filters, scores, or comparison.</p>
+                <span>Morning camera</span>
+                <h3>Take one honest photo.</h3>
+                <p>Open a private selfie capture, save today’s real state, and add it to your 30-day recap.</p>
               </div>
             </article>
             <article class="flow-item">
@@ -1031,9 +1037,9 @@
                 <img src="./assets/morning-hype.png" width="853" height="1844" loading="lazy" decoding="async" alt="Morning hype screen with Tomorrow Crew" />
               </div>
               <div class="flow-copy">
-                <span>Crew</span>
-                <h3>Make tiny progress feel good.</h3>
-                <p>Doodoo, Poof, and Sparky turn the habit into support instead of self-pressure.</p>
+                <span>Morning hype</span>
+                <h3>Let progress feel good.</h3>
+                <p>After you save the photo, Doodoo, Poof, and Sparky react so the habit feels supportive, not performative.</p>
               </div>
             </article>
           </div>
