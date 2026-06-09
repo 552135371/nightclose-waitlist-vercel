@@ -96,14 +96,21 @@ async function saveToSupabase(entry) {
     throw new Error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
   }
 
+  const headers = {
+    apikey: key,
+    "Content-Type": "application/json",
+    Prefer: "return=minimal",
+  };
+
+  // Supabase `sb_secret_...` keys are server-only secret keys, not JWTs.
+  // Legacy service_role keys are JWTs and still need the Authorization header.
+  if (!key.startsWith("sb_secret_")) {
+    headers.Authorization = `Bearer ${key}`;
+  }
+
   const response = await fetch(`${url.replace(/\/$/, "")}/rest/v1/${table}`, {
     method: "POST",
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      Prefer: "return=minimal",
-    },
+    headers,
     body: JSON.stringify({
       email: entry.email,
       name: entry.name || null,
@@ -151,7 +158,9 @@ async function saveToWebhook(entry) {
 }
 
 async function saveEntry(entry) {
-  const provider = process.env.STORAGE_PROVIDER || "webhook";
+  const provider =
+    process.env.STORAGE_PROVIDER ||
+    (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY ? "supabase" : "webhook");
   if (provider === "supabase") return saveToSupabase(entry);
   if (provider === "webhook") return saveToWebhook(entry);
   throw new Error(`Unsupported STORAGE_PROVIDER: ${provider}`);

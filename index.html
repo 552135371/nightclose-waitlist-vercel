@@ -118,14 +118,17 @@
 
       .nav-pill {
         min-height: 42px;
+        min-width: max-content;
+        flex: 0 0 auto;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0 1rem;
+        padding: 0 1.15rem;
         border-radius: 999px;
         color: var(--ink);
         background: var(--gold-400);
         font-weight: 700;
+        white-space: nowrap;
       }
 
       .hero-stage {
@@ -369,9 +372,9 @@
 
       .problem-image img {
         width: 100%;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 16 / 10;
         object-fit: cover;
-        object-position: 54% center;
+        object-position: 52% 44%;
       }
 
       .problem-list {
