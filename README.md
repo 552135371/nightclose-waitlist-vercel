@@ -1,10 +1,16 @@
-# HTML Waitlist on Vercel
+# NightClose Waitlist on Vercel
 
-Generic static HTML + Vercel Function template for landing pages that need a waitlist form.
+Static NightClose waitlist site on Vercel with a server-side waitlist API.
+
+This repo is the NightClose-specific deployed instance. Keep the generic reusable template separate at:
+
+```text
+/Users/wanghuilin/Projects/html-waitlist-vercel-template
+```
 
 ## What This Gives You
 
-- Static `index.html` that can be replaced with any landing page.
+- Static `index.html` for the current NightClose landing page.
 - `POST /api/waitlist` endpoint for collecting emails.
 - Honeypot spam field.
 - Email validation.
@@ -28,7 +34,7 @@ Generic static HTML + Vercel Function template for landing pages that need a wai
 ## Quick Start
 
 ```bash
-cd /Users/wanghuilin/Projects/html-waitlist-vercel-template
+cd /Users/wanghuilin/Projects/nightclose-waitlist-vercel
 npx vercel dev
 ```
 
@@ -43,7 +49,7 @@ Open the local URL from Vercel CLI and submit the demo form.
 
 Vercel reads environment variables during Function execution, and changes apply to new deployments.
 
-## Recommended: Supabase Storage
+## Supabase Storage
 
 Create a Supabase table using `supabase.sql`.
 
@@ -59,9 +65,9 @@ WAITLIST_PROJECT=nightclose
 
 Use the service role key only on the server side. Never expose it in HTML.
 
-### Your Current Supabase Project
+### Current Supabase Project
 
-The template is currently prefilled for:
+This instance is configured for:
 
 ```text
 Project name: 552135371's Project
@@ -137,4 +143,5 @@ await fetch("/api/waitlist", {
 
 - Vercel file storage is not durable for submitted data. Use Supabase or a webhook.
 - Add a unique index in your storage layer if you want one email per project.
-- This template is intentionally framework-free so it can wrap any static landing page.
+- This instance is intentionally framework-free so the landing page can be replaced quickly during market validation.
+- As of 2026-06-01, NightClose marketing is testing `30-day real-state glow-back diary + Tomorrow Crew`; if `index.html` still reflects an older `Tomorrow Glow` or doomscrolling-first narrative, replace the landing copy before running new traffic.
